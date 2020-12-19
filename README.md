@@ -1,0 +1,3 @@
+- Install Racket and make sure it is available in your `PATH`
+- Run `./delisp boot.delisp`
+- The ouptut files are under `<project-dir>/.delisp/builds/<path>`
