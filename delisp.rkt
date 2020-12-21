@@ -28,7 +28,8 @@
          [output-file (get-output-file file ".js")])
     (make-parent-directory* output-file)
     (display-to-file json-string json-file #:exists 'truncate)
-    (system* "/Users/davazp/.nvm/versions/node/v12.18.2/bin/node" "format.js" json-file output-file)))
+    (let ([node (find-executable-path "node")])
+      (system* node "format.js" json-file output-file))))
 
 (define file-to-compile
   (command-line
