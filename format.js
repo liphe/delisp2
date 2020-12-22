@@ -15,4 +15,9 @@ const js = prettier.format(
   ".", // any non-empty, non-whitespace string
   { parser: () => ast }
 )
-fs.writeFileSync(output, js)
+
+if (output === '-') {
+  console.log(js)
+} else {
+  fs.writeFileSync(output, js)
+}

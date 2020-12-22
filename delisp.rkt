@@ -24,12 +24,18 @@
 (define (compile-file file)
   (let* ([m (file->list file)]
          [json-string (compile-module m)]
-         [json-file (get-output-file file ".json")]
          [output-file (get-output-file file ".js")])
     (make-parent-directory* output-file)
-    (display-to-file json-string json-file #:exists 'truncate)
+    (format-js-to-file json-string output-file)))
+
+(define (format-js-to-file ast out)
+  (let ([json-file (make-temporary-file)])
+    (display-to-file ast json-file #:exists 'truncate)
     (let ([node (find-executable-path "node")])
-      (system* node "format.js" json-file output-file))))
+      (system* node "format.js" json-file out))))
+
+(define (format-js ast)
+  (format-js-to-file ast "-"))
 
 (define file-to-compile
   (command-line
