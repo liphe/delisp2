@@ -6,6 +6,7 @@
          racket/system
          racket/path)
 
+(require "compat.rkt")
 (require "compiler.rkt")
 
 (define project-root
@@ -37,11 +38,17 @@
 (define (format-js ast)
   (format-js-to-file ast "-"))
 
+(define (compile-module-to-string m)
+
+
+
+  (format-js (compile-module m)))
+
 (define file-to-compile
   (command-line
    #:program "delisp"
    #:args (filename)
    filename))
 
-(void 
+(void
  (compile-file file-to-compile))
